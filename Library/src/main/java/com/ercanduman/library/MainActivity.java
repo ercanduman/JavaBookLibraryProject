@@ -2,6 +2,8 @@ package com.ercanduman.library;
 
 public class MainActivity {
     public static void main(String[] args) {
-        System.out.println("Library app running!");
+        if (DatabaseHandler.establishConnection())
+            System.out.println(GlobalConfigs.LOG_SUCCESS_PREFIX + "Database connecntion is successful!");
+
     }
 }
