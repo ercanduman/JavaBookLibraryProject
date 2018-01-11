@@ -14,6 +14,6 @@ class GlobalConfigs {
 
     static final String SQL_SELECT_ALL = "{? = call javalibraryapp.listallbooks()}";
     static final String SQL_DELETE_BY_ID = "BEGIN javalibraryapp.removebook(pin_id => ?); END;";
-    static final String SQL_ADD_NEW_ONE = "BEGIN javalibraryapp.addnewbook(pis_bookname   => ?, pis_authorname => ?; END;";
+    static final String SQL_ADD_NEW_ONE = "BEGIN javalibraryapp.addnewbook(?, ?, ?); END;";
 }
 
