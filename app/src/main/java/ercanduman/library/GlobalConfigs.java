@@ -13,7 +13,7 @@ class GlobalConfigs {
     static final String ORACLE_DB_PASSWORD = "Erc787dmm";
 
     static final String SQL_SELECT_ALL = "{? = call javalibraryapp.listallbooks()}";
-    static final String SQL_DELETE_BY_ID = "BEGIN javalibraryapp.removebook(pin_id => ?); END;";
-    static final String SQL_ADD_NEW_ONE = "BEGIN javalibraryapp.addnewbook(?, ?, ?); END;";
+    static final String SQL_DELETE_BY_ID = " { ? = call javalibraryapp.removebook(?)}"; // for functions = call used
+    static final String SQL_ADD_NEW_ONE = "BEGIN javalibraryapp.addnewbook(?, ?, ?); END;"; // for procedures begin-end block used
 }
 

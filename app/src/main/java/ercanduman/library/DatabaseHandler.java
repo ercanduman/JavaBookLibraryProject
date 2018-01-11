@@ -79,12 +79,29 @@ class DatabaseHandler {
             oracleCallableStatement.registerOutParameter(3, Types.VARCHAR);
             oracleCallableStatement.execute();
 
-            String result = oracleCallableStatement.getString(3);
+            String result = oracleCallableStatement.getString(3); // since 3rd one is output parameter, 3 should be here
             System.out.println(result);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeConnection();
         }
+    }
+
+    static void RemoveBook(int id) {
+        establishConnection();
+        try {
+            oracleCallableStatement = (OracleCallableStatement) connection.prepareCall(GlobalConfigs.SQL_DELETE_BY_ID);
+            oracleCallableStatement.setInt(2, id);
+            oracleCallableStatement.registerOutParameter(1, Types.VARCHAR);
+            oracleCallableStatement.execute();
+
+            System.out.println(oracleCallableStatement.getString(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+
     }
 }
