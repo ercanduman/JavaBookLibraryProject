@@ -1,4 +1,4 @@
-package com.ercanduman.library;
+package ercanduman.library;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

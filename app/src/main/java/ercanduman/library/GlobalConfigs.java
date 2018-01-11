@@ -1,4 +1,4 @@
-package com.ercanduman.library;
+package ercanduman.library;
 
 /**
  * Created on 10.01.2018.

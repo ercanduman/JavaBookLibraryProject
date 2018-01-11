@@ -1,9 +1,0 @@
-apply plugin: 'java-library'
-
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation files('libs/ojdbc14.jar')
-}
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"

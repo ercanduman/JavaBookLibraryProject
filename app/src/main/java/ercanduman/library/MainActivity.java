@@ -1,4 +1,4 @@
-package com.ercanduman.library;
+package ercanduman.library;
 
 public class MainActivity {
     public static void main(String[] args) {
