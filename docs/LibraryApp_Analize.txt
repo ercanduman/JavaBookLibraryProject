@@ -1,0 +1,22 @@
+Library App:
+
+Requirements!
+* Add, delete a book or list all books by using console (for more Scanner library check here: https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html 
+
+ i.e. :
+ - add "Sefiller" "Victor Hugo" --> will add Sefiller to library with author name  as Victor Hugo
+ - remove 123						 --> removes the book whose id is 123
+ - list										 --> list/show all books with  id-name-author
+
+*Handle all exceptions 
+-- if the book with 123 id is not available then show and error 
+
+PS: Oracle XE database will be used
+
+********* DATABASE *******
+
+EDUMAN.JAVALIBRARYAPP 	-- Package NAME
+EDUMAN.BOOKS 					-- Main table 
+PROCEDURE AddNewBook  	-- Adds new book to library.
+FUNCTION ListAllBooks RETURN SYS_REFCURSOR	--Lists all library's books
+FUNCTION RemoveBook(pin_ID) 		-- Deletes a book based on given id number
