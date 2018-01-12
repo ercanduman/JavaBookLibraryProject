@@ -13,19 +13,17 @@ import oracle.jdbc.driver.OracleDriver;
 /**
  * Created on 10.01.2018.
  */
-
 class DatabaseHandler {
     private static Connection connection;
     private static OracleCallableStatement oracleCallableStatement;
     private static OracleResultSet oracleResultSet;
+    private static final String outpurFormat = "%-3s %-30s %-30s\n";
 
     static boolean establishConnection() {
         try {
             Class.forName(GlobalConfigs.ORACLE_DRIVER);
             DriverManager.registerDriver(new OracleDriver());
-
             connection = DriverManager.getConnection(GlobalConfigs.ORACLE_URL, GlobalConfigs.ORACLE_DB_USERNAME, GlobalConfigs.ORACLE_DB_PASSWORD);
-//            System.out.println(GlobalConfigs.LOG_SUCCESS_PREFIX + "Database connecntion is successful!");
             return true;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -55,12 +53,11 @@ class DatabaseHandler {
             oracleCallableStatement.execute();
             oracleResultSet = (OracleResultSet) oracleCallableStatement.getCursor(1);
 
-            String format = "%-3s %-30s %-30s\n";
             System.out.println(GlobalConfigs.LOG_SUCCESS_PREFIX + "All Books:");
-            System.out.printf(format, "Id ", "Book Name", "Author");
+            System.out.printf(outpurFormat, "Id ", "Book Name", "Author");
 
             while (oracleResultSet.next()) {
-                System.out.printf(format, oracleResultSet.getString(1), oracleResultSet.getString(2), oracleResultSet.getString(3));
+                System.out.printf(outpurFormat, oracleResultSet.getString(1), oracleResultSet.getString(2), oracleResultSet.getString(3));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +67,7 @@ class DatabaseHandler {
         }
     }
 
-    static void AddNewBook(String bookName, String author) {
+    static void AddNewBook2Database(String bookName, String author) {
         establishConnection();
         try {
             oracleCallableStatement = (OracleCallableStatement) connection.prepareCall(GlobalConfigs.SQL_ADD_NEW_ONE);
@@ -88,7 +85,7 @@ class DatabaseHandler {
         }
     }
 
-    static void RemoveBook(int id) {
+    static void RemoveBookFromDatabse(int id) {
         establishConnection();
         try {
             oracleCallableStatement = (OracleCallableStatement) connection.prepareCall(GlobalConfigs.SQL_DELETE_BY_ID);
@@ -102,6 +99,5 @@ class DatabaseHandler {
         } finally {
             closeConnection();
         }
-
     }
 }
