@@ -25,7 +25,7 @@ class DatabaseHandler {
             DriverManager.registerDriver(new OracleDriver());
 
             connection = DriverManager.getConnection(GlobalConfigs.ORACLE_URL, GlobalConfigs.ORACLE_DB_USERNAME, GlobalConfigs.ORACLE_DB_PASSWORD);
-            System.out.println(GlobalConfigs.LOG_SUCCESS_PREFIX + "Database connecntion is successful!");
+//            System.out.println(GlobalConfigs.LOG_SUCCESS_PREFIX + "Database connecntion is successful!");
             return true;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
