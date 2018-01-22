@@ -1,1 +1,1 @@
-select javalibraryapp.listallbooks from dual; 
+SELECT javalibraryapp.listallbooks FROM dual;

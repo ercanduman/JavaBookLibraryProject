@@ -1,4 +1,4 @@
 BEGIN
   -- Call the function
-  javalibraryapp.removebook(pin_id => 2);
+  dbms_output.put_line(javalibraryapp.removebook(42));
 END;

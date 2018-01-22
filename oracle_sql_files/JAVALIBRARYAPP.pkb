@@ -7,6 +7,11 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.JAVALIBRARYAPP
    **************************************************************************************/
  IS
 
+  gs_LogRemarkAddSuccess    CONSTANT VARCHAR2(100) := ' is successfully added to library!';
+  gs_LogRemarkAvailable     CONSTANT VARCHAR2(100) := ' already available in library!';
+  gs_LogRemarkDeleteSuccess CONSTANT VARCHAR2(100) := ' deleted successfully for id: ';
+  gs_LogRemarkNotAvailable  CONSTANT VARCHAR2(100) := ' Book not found for id: ';
+
   PROCEDURE AddNewBook
   (
     pis_BookName      IN EDUMAN.JAVALIB_BOOKS.BOOK_NAME%TYPE,
@@ -36,14 +41,12 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.JAVALIBRARYAPP
     VALUES
       (Eduman.Javalib_Books_Idseq.Nextval, pis_BookName, pis_AuthorName, SYSDATE);
     COMMIT;
-    pis_OutputMessage := '''' || pis_BookName ||
-                         ''' is successfully added to library!';
+    pis_OutputMessage := '''' || pis_BookName || '''' ||
+                         gs_LogRemarkAddSuccess;
   EXCEPTION
     WHEN DUP_VAL_ON_INDEX THEN
-      pis_OutputMessage := 'ERROR> ''' || pis_BookName ||
-                           ''' already available in library!';
-      dbms_output.put_line(pis_OutputMessage);
-    
+      pis_OutputMessage := 'ERROR> ''' || pis_BookName || '''' ||
+                           gs_LogRemarkAvailable;
   END AddNewBook;
 
   FUNCTION ListAllBooks RETURN SYS_REFCURSOR
@@ -63,10 +66,8 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.JAVALIBRARYAPP
    IS
     pis_OutputMessage SYS_REFCURSOR;
   BEGIN
-  
     OPEN pis_OutputMessage FOR
       SELECT * FROM eduman.javalib_books;
-  
     RETURN pis_OutputMessage;
   END ListAllBooks;
 
@@ -103,20 +104,17 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.JAVALIBRARYAPP
       IF vb_Exist IS NOT NULL AND vb_Exist > 0 THEN
         DELETE FROM eduman.javalib_books WHERE id = pin_ID;
         COMMIT;
-        vs_OutputMessage := 'INFO> ''' || vs_BookName ||
-                            ''' deleted successfully for id: ' || pin_ID;
-      
+        vs_OutputMessage := 'INFO> ''' || vs_BookName || '''' ||
+                            gs_LogRemarkDeleteSuccess || pin_ID;
       END IF;
     
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-        vs_OutputMessage := 'ERROR> Book not found for id: ' || pin_ID;
+        vs_OutputMessage := 'ERROR>' || gs_LogRemarkNotAvailable || pin_ID;
       
       WHEN OTHERS THEN
         vs_OutputMessage := substr('ERROR> ' || SQLERRM ||
-                                   dbms_utility.format_error_backtrace,
-                                   1,
-                                   200);
+                                   dbms_utility.format_error_backtrace, 1, 200);
     END;
   
     RETURN vs_OutputMessage;
